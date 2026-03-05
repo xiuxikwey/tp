@@ -300,32 +300,107 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Hairy Pawter` and the **Actor** is the `user`, unless specified otherwise.
+A **Precondition** is that the system is displaying the list of clients and pets)
 
-**Use case: Delete a person**
+**Use case 1: Add a client**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a client.
+2.  System adds the client and displays the updated list.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The client already exists.
 
-  Use case ends.
+   * 1a1.  System notifies user.
 
-* 3a. The given index is invalid.
+     Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+* 1b. The given parameters are invalid.
 
-      Use case resumes at step 2.
+    * 1b1. System shows an error message.
 
-*{More to be added}*
+      Use case resumes at step 1.
+
+**Use case 2: Delete a client**
+
+**MSS**
+
+1.  User requests to delete a client.
+2.  System deletes the client and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The client does not exist.
+
+   * 1a1.  System notifies user.
+
+     Use case ends.
+
+* 1b. The given parameters are invalid.
+
+    * 1b1. System shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case 3: Add a pet**
+
+**MSS**
+
+1.  User requests to add a pet to a client.
+2.  System adds the pet and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The client does not exist.
+
+   * 1a1.  System notifies user.
+   * 1a2.  User !!creates client (UC1)!!.
+
+     Use case resumes at step 1.
+
+* 1b. The given parameters are invalid.
+
+    * 1b1. System shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case 4: Delete a pet**
+
+**MSS**
+
+1.  User requests to delete a pet from a client.
+2.  System deletes the pet and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The client does not exist.
+
+   * 1a1.  System notifies user.
+
+     Use case ends.
+
+* 1b. The pet does not exist.
+
+   * 1b1.  System notifies user.
+
+     Use case ends.
+
+* 1c. The given parameters are invalid.
+
+    * 1c1. System shows an error message.
+
+      Use case resumes at step 1.
 
 ### Non-Functional Requirements
 
