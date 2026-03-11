@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.client.Address;
+import seedu.address.model.client.Client;
 import seedu.address.model.client.Email;
 import seedu.address.model.client.Name;
-import seedu.address.model.client.Client;
 import seedu.address.model.client.Phone;
 import seedu.address.model.pet.Pet;
 import seedu.address.model.tag.Tag;
@@ -33,7 +33,7 @@ class JsonAdaptedClient {
     private final List<JsonAdaptedPet> pets = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedClient} with the given person details.
+     * Constructs a {@code JsonAdaptedClient} with the given client details.
      */
     @JsonCreator
     public JsonAdaptedClient(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
@@ -69,19 +69,19 @@ class JsonAdaptedClient {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Client} object.
+     * Converts this Jackson-friendly adapted client object into the model's {@code Client} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted client.
      */
     public Client toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> clientTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
-            personTags.add(tag.toModelType());
+            clientTags.add(tag.toModelType());
         }
 
-        final List<Pet> personPets = new ArrayList<>();
+        final List<Pet> clientPets = new ArrayList<>();
         for (JsonAdaptedPet pet : pets) {
-            personPets.add(pet.toModelType());
+            clientPets.add(pet.toModelType());
         }
 
         if (name == null) {
@@ -116,9 +116,9 @@ class JsonAdaptedClient {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(clientTags);
 
-        final Set<Pet> modelPets = new HashSet<>(personPets);
+        final Set<Pet> modelPets = new HashSet<>(clientPets);
 
         return new Client(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelPets);
     }

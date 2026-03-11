@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.client.NameContainsKeywordsPredicate;
 import seedu.address.testutil.ClientBuilder;
 
 public class NameContainsKeywordsPredicateTest {
@@ -36,7 +35,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different client -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

@@ -51,7 +51,7 @@ public class AddClientCommandTest {
         ModelStub modelStub = new ModelStubWithClient(validClient);
 
         assertThrows(CommandException.class,
-                AddClientCommand.MESSAGE_DUPLICATE_PERSON, (
+                AddClientCommand.MESSAGE_DUPLICATE_CLIENT, (
                         ) -> addClientCommand.execute(modelStub));
     }
 

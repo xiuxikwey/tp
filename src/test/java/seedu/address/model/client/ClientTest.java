@@ -14,33 +14,32 @@ import static seedu.address.testutil.TypicalClients.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.client.Client;
 import seedu.address.testutil.ClientBuilder;
 
 public class ClientTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Client person = new ClientBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+        Client client = new ClientBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> client.getTags().remove(0));
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameClient() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameClient(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameClient(null));
 
         // same phone, all other attributes different -> returns true
         Client editedAlice = new ClientBuilder(ALICE).withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameClient(editedAlice));
 
         // different phone, all other attributes same -> returns false
         editedAlice = new ClientBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameClient(editedAlice));
     }
 
     @Test
@@ -58,7 +57,7 @@ public class ClientTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different person -> returns false
+        // different client -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
