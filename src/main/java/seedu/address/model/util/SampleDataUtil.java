@@ -10,6 +10,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Pet;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -57,4 +58,12 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a pet set containing the list of strings given.
+     */
+    public static Set<Pet> getPetSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Pet::new)
+                .collect(Collectors.toSet());
+    }
 }

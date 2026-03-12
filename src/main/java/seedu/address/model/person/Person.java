@@ -17,13 +17,14 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
+    private final Name name;
+    private final Email email;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Pet> pets = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -35,6 +36,19 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Person person, Set<Pet> pets) {
+        requireAllNonNull(person, pets);
+        this.name = person.getName();
+        this.phone = person.getPhone();
+        this.email = person.getEmail();
+        this.address = person.getAddress();
+        this.tags.addAll(person.getTags());
+        this.pets.addAll(pets);
     }
 
     public Name getName() {
@@ -62,7 +76,15 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
+     * Returns an immutable pet set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Pet> getPets() {
+        return Collections.unmodifiableSet(pets);
+    }
+
+    /**
+     * Returns true if both persons have the same phone.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -71,7 +93,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getPhone().equals(getPhone());
     }
 
     /**
@@ -94,13 +116,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && pets.equals(otherPerson.pets);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, pets);
     }
 
     @Override
@@ -111,6 +134,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("pets", pets)
                 .toString();
     }
 
