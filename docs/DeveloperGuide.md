@@ -300,32 +300,187 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Hairy Pawter` and the **Actor** is the `user`, unless specified otherwise.
+A **Precondition** is that the system is displaying the list of clients and pets)
 
-**Use case: Delete a person**
+
+**Use case 1: Add a client and their pet**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a client.
+2.  System adds the client and displays the updated list.
+3.  User requests to add a pet to the client.
+4.  System adds the pet and displays the updated list.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The client already exists.
 
-  Use case ends.
+   * 1a1.  System notifies user.
 
-* 3a. The given index is invalid.
+     Use case resumes at step 3.
 
-    * 3a1. AddressBook shows an error message.
+* 1b. The given parameters are invalid.
+
+    * 1b1. System shows an error message.
+    * 1b2. User makes new request to add a client.
+      Steps 1b1-1b2 are repeated until the parameters are valid.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+* 3a. The given parameters are invalid.
+
+    * 3a1. System shows an error message.
+    * 3a2. User makes new request to add a pet to a client.
+      Steps 3a1-3a2 are repeated until the parameters are valid.
+
+      Use case resumes at step 4.
+
+**Use case 2: Add a pet to an existing client**
+
+**MSS**
+
+1.  User finds an existing client.
+2.  User requests to add a pet to the client.
+3.  System adds the pet and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no existing clients.
+
+     Use case ends.
+
+* 2a. The given parameters are invalid.
+
+    * 2a1. System shows an error message.
+    * 2a2. User makes new request to add a pet.
+
+      Steps 2a1-2a2 are repeated until the parameters are valid.
+
+      Use case resumes at step 3.
+
+**Use case 3: Delete a client**
+
+**MSS**
+
+1.  User finds a client to delete.
+2.  User requests to delete a client.
+3.  System deletes the client and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no clients to delete.
+
+     Use case ends.
+
+* 2a. The given parameters are invalid.
+
+    * 2a1. System shows an error message.
+    * 2a2. User makes new request to delete a client.
+
+      Steps 2a1-2a2 are repeated until the parameters are valid.
+
+      Use case resumes at step 3.
+
+
+**Use case 4: Delete a pet**
+
+**MSS**
+
+1.  User finds a pet to delete.
+2.  User requests to delete a pet from a client.
+3.  System deletes the pet and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no pets to delete.
+
+     Use case ends.
+
+* 2a. The given parameters are invalid.
+
+    * 2a1. System shows an error message.
+    * 2a2. User makes new request to delete a pet from a client.
+      Steps 2a1-2a2 are repeated until the parameters are valid.
+
+      Use case resumes at step 3.
+
+**Use case 5: Edit details of a client**
+
+**MSS**
+
+1.  User finds the client to edit.
+2.  User deletes the client (UC3).
+3.  System deletes the client and displays the updated list.
+4.  User adds the updated client and their pets (UC1).
+5.  System adds the client and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no clients to edit.
+
+     Use case ends.
+
+**Use case 6: Edit details of a pet**
+
+**MSS**
+
+1.  User finds the pet to edit.
+2.  User deletes the pet (UC4).
+3.  System deletes the pet and displays the updated list.
+4.  User adds the updated pet to the client (UC2).
+5.  System adds the pet and displays the updated list.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no pets to edit.
+
+     Use case ends.
+
+**Use case 7: Search for pet of client**
+
+**MSS**
+
+1.  User looks for the client.
+2.  User looks for their pet.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The pet does not exist.
+
+     Use case ends.
+
+**Use case 8: Search for client who owns pet**
+
+**MSS**
+
+1.  User looks for the pet.
+2.  User looks for the client.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are many pets with the same name.
+
+    * 1a1. User decides which client is the one they want.
+
+      Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
