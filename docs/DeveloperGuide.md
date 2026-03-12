@@ -274,27 +274,66 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* runs a pet grooming business
+* manages many repeat clients
+* requires fast access to pet and client information during work
+* needs reliable record keeping
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable typing simple commands
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: 
+
+* fast retrieval of pet and client information
+* clear pet -> client (owner) relationship tracking
+* more efficient info management using keyboard-driven commands
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
+| Priority | As a …  ​ | I want to …​                | So that I can…​ |
 |----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| `* * *`  | new user | view the user guide easily | learn more about how to use the product |
+| `* * *`  | user     | add a new pet              | keep track of a new pet |
+| `* * *`  | user     | record a pet's details (name, breed, date of birth) | identify each pet easily |
+| `* * *`  | user     | add a new client and their contact information | keep track of a new client |
+| `* * *`  | user     | view a pet's information   | view the information of a pet that I need to groom |
+| `* * *`  | user     | view a client's details    | see the details of a client to contact |
+| `* * *`  | user     | link a client to their pet | record who the pet's owner is |
+| `* * *`  | user     | remove a pet               | delete outdated pet information |
+| `* * *`  | user     | remove a client            | remove clients who no longer visit my shop |
+| `* *`    | user     | edit a client's information | keep my client records up to date |
+| `* *`    | user     | edit a pet's details       | update pet information when needed |
+| `* *`    | user     | search for clients by name | quickly locate a specific client's details |
+| `* *`    | user     | search for pets by name    | quickly find a specific pet's details |
+| `* *`    | user     | search for a client and see all the pets they own | quickly retrieve their pets' information when they arrive |
+| `* *`    | user     | search for a pet and see their owner's details | quickly retrieve the owner's contact information | 
+| `* *`    | user     | attach photos to pets      | record what the pets look like in real life |
+| `* *`    | user     | view a pet's photos        | identify pets quickly in real life | 
+| `* *`    | user     | delete a pet's photos      | remove outdated pet photos |
+| `* *`    | new user | purge (delete all) existing pets | clear any dummy pet information once I have familiarised with the app |
+| `* *`    | new user | purge (delete all) existing clients | clear any dummy client information once I have familiarised with the app |
+| `* *`    | user     | record grooming notes for each pet | record each pet's special requirements |
+| `* *`    | user     | view grooming notes for a pet | recall a pet's special requirements |
+| `* *`    | user     | update grooming notes for a pet | update a pet's requirements as they change |
+| `* *`    | user     | delete grooming notes for a pet | remove outdated information |
+| `* *`    | experienced user | filter pets by animal type | view my client demographic |
+| `* *`    | experienced user | attach tags to clients | categorize different types of clients | 
+| `* *`    | experienced user | attach tags to pets    | flag out pets with special requirements |
+| `* *`    | experienced user | filter clients by tags | retrieve all clients of that category   | 
+| `* *`    | experienced user | filter pets by tags    | retrieve all pets of that category      |
+| `* * *`  | user     | ensure my data persists automatically | preserve my records after closing the app |
+| `* *`    | user     | add appointment | schedule future appointments |
+| `* *`    | user     | view all appointments | see what upcoming appointments I have |
+| `* *`    | user     | edit appointment time and day | keep track of changes in future appoinements |
+| `* *`    | user     | delete appointment | keep track of cancellation of appointments |
+| `* *`    | user     | filter appointments by day | see what appointments I have for that day |
+| `* *`    | user     | mark the appointment as completed | keep track of what appointments have been completed |
+| `* *`    | user     | undo my last command | undo mistakes and typos |
+| `* *`    | user     | redo my last command | redo commands I accidentally undoed |
 
 *{More to be added}*
 
