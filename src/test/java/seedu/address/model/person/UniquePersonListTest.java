@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPets.SNOOPY;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -163,9 +165,40 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void add_nullPet_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniquePersonList.addPet(null, ALICE.getPhone()));
+    }
+
+    @Test
+    public void addPet_nullOwnerPhone_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniquePersonList.addPet(SNOOPY, null));
+    }
+
+    @Test
+    public void addPet_nonExistentOwner_throwsPersonNotFoundException() {
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.addPet(SNOOPY, GEORGE.getPhone()));
+    }
+
+    @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void searchByPhone_nullPhone_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniquePersonList.searchByPhone(null));
+    }
+
+    @Test
+    public void searchByPhone_personNotInList_throwsPersonNotFoundException() {
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.searchByPhone(GEORGE.getPhone()));
+    }
+
+    @Test
+    public void searchByPhone_personInList_returnsPerson() {
+        uniquePersonList.add(ALICE);
+        assertEquals(ALICE, uniquePersonList.searchByPhone(ALICE.getPhone()));
     }
 
     @Test
