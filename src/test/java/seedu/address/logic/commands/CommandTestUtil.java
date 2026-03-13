@@ -58,6 +58,12 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final String VALID_PETNAME_SNOOPY = "Snoopy";
+    public static final String VALID_PETNAME_DOGGY = "Doggy";
+    public static final String NAME_DESC_SNOOPY = " " + PREFIX_NAME + VALID_PETNAME_SNOOPY;
+    public static final String NAME_DESC_DOGGY = " " + PREFIX_NAME + VALID_PETNAME_DOGGY;
+
+
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
