@@ -83,6 +83,13 @@ public class Person {
     }
 
     /**
+     * Adds a pet to the person's pet set.
+     */
+    public void addPet(Pet pet) {
+        pets.add(pet);
+    }
+
+    /**
      * Returns true if both persons have the same phone.
      * This defines a weaker notion of equality between two persons.
      */
