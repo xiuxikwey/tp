@@ -39,8 +39,8 @@ public class PetAndPerson {
         }
 
         PetAndPerson otherPetAndPerson = (PetAndPerson) other;
-        return pet.equals(otherPetAndPerson.pet)
-                && person.equals(otherPetAndPerson.person);
+        return pet.equals(otherPetAndPerson.getPet())
+                && person.equals(otherPetAndPerson.getPerson());
     }
 
     @Override

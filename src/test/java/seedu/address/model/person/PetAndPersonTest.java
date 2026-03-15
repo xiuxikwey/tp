@@ -35,6 +35,14 @@ public class PetAndPersonTest {
     }
 
     @Test
+    public void hashCodeMethod() {
+        Pet pet = new Pet(new Name("Barkus"));
+        PetAndPerson pair = new PetAndPerson(pet, ALICE);
+        int expected = 499441098;
+        assertEquals(expected, pair.hashCode());
+    }
+
+    @Test
     public void toStringMethod() {
         Pet pet = new Pet(new Name("Barkus"));
         PetAndPerson pair = new PetAndPerson(pet, ALICE);
