@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Pet;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
@@ -108,6 +109,28 @@ public class AddressBookTest {
             addressBook.removePet(
                     new seedu.address.model.person.Pet(new seedu.address.model.person.Name("Test")),
                     ALICE.getPhone()));
+    }
+
+    @Test
+    public void addPet_addsPetToPerson() {
+        AddressBook ab = new AddressBook();
+        Person person = new seedu.address.testutil.PersonBuilder().withPhone("88888888").build();
+        ab.addPerson(person);
+        Pet pet = new seedu.address.model.person.Pet(new seedu.address.model.person.Name("Catty"));
+        ab.addPet(pet, person.getPhone());
+        Person found = ab.getPersonList().stream().filter(p -> p.getPhone().equals(person.getPhone())).findFirst().get();
+        assertTrue(found.getPets().contains(pet));
+    }
+
+    @Test
+    public void removePet_removesPetFromPerson() {
+        AddressBook ab = new AddressBook();
+        Person person = new seedu.address.testutil.PersonBuilder().withPhone("88888888").withPets("Catty").build();
+        ab.addPerson(person);
+        Pet pet = new seedu.address.model.person.Pet(new seedu.address.model.person.Name("Catty"));
+        ab.removePet(pet, person.getPhone());
+        Person found = ab.getPersonList().stream().filter(p -> p.getPhone().equals(person.getPhone())).findFirst().get();
+        assertFalse(found.getPets().contains(pet));
     }
 
     /**
