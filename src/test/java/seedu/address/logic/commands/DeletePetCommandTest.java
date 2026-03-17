@@ -26,60 +26,60 @@ import seedu.address.model.person.Pet;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.PetBuilder;
 
-public class AddPetCommandTest {
+public class DeletePetCommandTest {
 
     @Test
     public void constructor_nullPet_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddPetCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new DeletePetCommand(null, new Phone("99999999")));
     }
 
     @Test
     public void constructor_nullPhone_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddPetCommand(new Pet(new Name("Dog")), null));
+        assertThrows(NullPointerException.class, () -> new DeletePetCommand(new Pet(new Name("Dog")), null));
     }
 
     @Test
-    public void execute_petAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPetAdded modelStub = new ModelStubAcceptingPetAdded();
+    public void execute_petAcceptedByModel_deleteSuccessful() throws Exception {
+        ModelStubAcceptingPetDeleted modelStub = new ModelStubAcceptingPetDeleted();
         Pet validPet = new PetBuilder().build();
 
-        CommandResult commandResult = new AddPetCommand(validPet, new Phone("99999999")).execute(modelStub);
+        CommandResult commandResult = new DeletePetCommand(validPet, new Phone("99999999")).execute(modelStub);
 
-        assertEquals(String.format(AddPetCommand.MESSAGE_SUCCESS, Messages.format(validPet)),
+        assertEquals(String.format(DeletePetCommand.MESSAGE_SUCCESS, Messages.format(validPet)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPet), modelStub.petsAdded);
+        assertEquals(Arrays.asList(validPet), modelStub.petsDeleted);
     }
 
     @Test
     public void equals() {
         Pet snoopy = new PetBuilder().withName("Snoopy").build();
         Pet doggy = new PetBuilder().withName("Doggy").build();
-        AddPetCommand addSnoopyCommand = new AddPetCommand(snoopy, new Phone("99999999"));
-        AddPetCommand addDoggyCommand = new AddPetCommand(doggy, new Phone("99999999"));
+        DeletePetCommand deleteSnoopyCommand = new DeletePetCommand(snoopy, new Phone("99999999"));
+        DeletePetCommand deleteDoggyCommand = new DeletePetCommand(doggy, new Phone("99999999"));
 
         // same object -> returns true
-        assertTrue(addSnoopyCommand.equals(addSnoopyCommand));
+        assertTrue(deleteSnoopyCommand.equals(deleteSnoopyCommand));
 
         // same values -> returns true
-        AddPetCommand addSnoopyCommandCopy = new AddPetCommand(snoopy, new Phone("99999999"));
-        assertTrue(addSnoopyCommand.equals(addSnoopyCommandCopy));
+        DeletePetCommand deleteSnoopyCommandCopy = new DeletePetCommand(snoopy, new Phone("99999999"));
+        assertTrue(deleteSnoopyCommand.equals(deleteSnoopyCommandCopy));
 
         // different types -> returns false
-        assertFalse(addSnoopyCommand.equals(1));
+        assertFalse(deleteSnoopyCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addSnoopyCommand.equals(null));
+        assertFalse(deleteSnoopyCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addSnoopyCommand.equals(addDoggyCommand));
+        // different pet -> returns false
+        assertFalse(deleteSnoopyCommand.equals(deleteDoggyCommand));
     }
 
     @Test
     public void toStringMethod() {
         Pet snoopy = new PetBuilder().withName("Snoopy").build();
-        AddPetCommand addPetCommand = new AddPetCommand(snoopy, new Phone("99999999"));
-        String expected = AddPetCommand.class.getCanonicalName() + "{pet=" + snoopy + "}";
-        assertEquals(expected, addPetCommand.toString());
+        DeletePetCommand deletePetCommand = new DeletePetCommand(snoopy, new Phone("99999999"));
+        String expected = DeletePetCommand.class.getCanonicalName() + "{pet=" + snoopy + "}";
+        assertEquals(expected, deletePetCommand.toString());
     }
 
     /**
@@ -123,7 +123,8 @@ public class AddPetCommandTest {
 
         @Override
         public void addPet(Pet pet, Phone phone) {
-            throw new AssertionError("This method should not be called."); }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void removePet(Pet pet, Phone phone) {
@@ -185,15 +186,15 @@ public class AddPetCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the pet being deleted.
      */
-    private class ModelStubAcceptingPetAdded extends ModelStub {
-        final ArrayList<Pet> petsAdded = new ArrayList<>();
+    private class ModelStubAcceptingPetDeleted extends ModelStub {
+        final ArrayList<Pet> petsDeleted = new ArrayList<>();
 
         @Override
-        public void addPet(Pet pet, Phone phone) {
+        public void removePet(Pet pet, Phone phone) {
             requireNonNull(pet);
-            petsAdded.add(pet);
+            petsDeleted.add(pet);
         }
 
         @Override

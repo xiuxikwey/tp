@@ -94,6 +94,19 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void removePet_nullPet_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.removePet(null, ALICE.getPhone()));
+    }
+
+    @Test
+    public void removePet_nullPhone_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                modelManager.removePet(
+                        new seedu.address.model.person.Pet(new seedu.address.model.person.Name("Test")),
+                        null));
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
@@ -128,5 +141,32 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    @Test
+    public void addPet_updatesFilteredList() {
+        ModelManager model = new ModelManager();
+        seedu.address.model.person.Person person = new seedu.address.testutil
+                .PersonBuilder().withPhone("99999999").build();
+        model.addPerson(person);
+        seedu.address.model.person.Pet pet = new seedu.address.model.person.Pet(
+                new seedu.address.model.person.Name("Doggy"));
+        model.addPet(pet, person.getPhone());
+        // Should not throw and filtered list should still contain a person with the same phone
+        assertTrue(model.getFilteredPersonList().stream()
+                .anyMatch(p -> p.getPhone().equals(person.getPhone())));
+    }
+
+    @Test
+    public void removePet_updatesFilteredList() {
+        ModelManager model = new ModelManager();
+        seedu.address.model.person.Person person = new seedu.address.testutil.PersonBuilder()
+                .withPhone("99999999").withPets("Doggy").build();
+        model.addPerson(person);
+        seedu.address.model.person.Pet pet = new seedu.address.model.person.Pet(
+                new seedu.address.model.person.Name("Doggy"));
+        model.removePet(pet, person.getPhone());
+        // Should not throw and filtered list should still contain the person
+        assertTrue(model.getFilteredPersonList().stream().anyMatch(p -> p.getPhone().equals(person.getPhone())));
     }
 }
