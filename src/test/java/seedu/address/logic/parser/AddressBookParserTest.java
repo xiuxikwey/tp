@@ -104,7 +104,7 @@ public class AddressBookParserTest {
         seedu.address.model.person.Pet pet = new seedu.address.model.person.Pet(
                 new seedu.address.model.person.Name("Snoopy"));
         String phone = "99999999";
-        String commandString = "deletepet n/Snoopy p/99999999";
+        String commandString = "deletePet n/Snoopy p/99999999";
         assertTrue(parser.parseCommand(commandString) instanceof seedu.address.logic.commands.DeletePetCommand);
     }
 }
