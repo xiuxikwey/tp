@@ -20,7 +20,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.FindPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -44,7 +44,9 @@ public class CommandTestUtil {
     public static final String VALID_PET_NAME_DOGGY = "Doggy";
     public static final String VALID_PET_SPECIES_DOG = "Dog";
     public static final String VALID_PET_BREED_LABRADOR = "Labrador";
+    public static final String VALID_PET_NOTE_CUTE = "Very cute";
     public static final String VALID_PET_NOTE_FRIENDLY = "Friendly";
+
 
     public static final String NAME_DESC_SNOOPY = " " + PREFIX_NAME + VALID_PET_NAME_SNOOPY;
     public static final String NAME_DESC_DOGGY = " " + PREFIX_NAME + VALID_PET_NAME_DOGGY;
@@ -71,6 +73,7 @@ public class CommandTestUtil {
     // empty string not allowed for pet names
     public static final String INVALID_PET_SPECIES_DESC = " " + PREFIX_SPECIES;
     public static final String INVALID_PET_BREED_DESC = " " + PREFIX_BREED;
+    public static final String INVALID_PET_NOTE_DESC = " " + PREFIX_NOTE;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -144,7 +147,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new FindPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }

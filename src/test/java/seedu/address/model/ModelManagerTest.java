@@ -16,7 +16,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.FindPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -93,7 +93,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasPet_petInList_returnsTrue() {
-        Person editedAlice = new PersonBuilder(ALICE).withPets(SNOOPY).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPet(SNOOPY).build();
         modelManager.addPerson(editedAlice);
         assertTrue(modelManager.hasPet(editedAlice.getPhone(), SNOOPY));
     }
@@ -145,7 +145,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredPersonList(new FindPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

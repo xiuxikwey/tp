@@ -19,7 +19,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PetBuilder;
 
@@ -34,8 +33,9 @@ public class PersonTest {
     @Test
     public void petConstructor() {
         Person person = new PersonBuilder().build();
-        Pet pet = new PetBuilder().build();
-        Person newPerson = new Person(person, SampleDataUtil.getPetSet(pet));
+        Person newPerson = new PersonBuilder(person)
+                .withPet(new PetBuilder().build())
+                .build();
 
         // same phone number -> returns true
         assertTrue(person.isSamePerson(newPerson));
@@ -115,7 +115,7 @@ public class PersonTest {
         assertFalse(ALICE.equals(editedAlice));
 
         //different pets ->returns false
-        editedAlice = new PersonBuilder(editedAlice).withPets(SNOOPY).build();
+        editedAlice = new PersonBuilder(editedAlice).withPet(SNOOPY).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
@@ -157,13 +157,13 @@ public class PersonTest {
         assertFalse(ALICE.hashCode() == editedAlice.hashCode());
 
         //different pets ->returns false
-        editedAlice = new PersonBuilder(editedAlice).withPets(DOGGY).build();
+        editedAlice = new PersonBuilder(editedAlice).withPet(DOGGY).build();
         assertFalse(ALICE.hashCode() == editedAlice.hashCode());
     }
 
     @Test
     public void removePet_existingPet_removesPet() {
-        Person editedAlice = new PersonBuilder(ALICE).withPets(SNOOPY).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPet(SNOOPY).build();
         Person aliceWithNoPet = editedAlice.removePet(SNOOPY);
         Person expectedPerson = new PersonBuilder(ALICE).build(); // without pets
         assertTrue(aliceWithNoPet.equals(expectedPerson));
@@ -171,9 +171,9 @@ public class PersonTest {
 
     @Test
     public void removePet_nonExistingPet_noChange() {
-        Person personWithPet = new PersonBuilder(ALICE).withPets(SNOOPY).build();
+        Person personWithPet = new PersonBuilder(ALICE).withPet(SNOOPY).build();
         Person aliceWithRemovedPet = personWithPet.removePet(DOGGY);
-        Person expectedPerson = new PersonBuilder(ALICE).withPets(SNOOPY).build();
+        Person expectedPerson = new PersonBuilder(ALICE).withPet(SNOOPY).build();
         assertTrue(aliceWithRemovedPet.equals(expectedPerson));
     }
 }

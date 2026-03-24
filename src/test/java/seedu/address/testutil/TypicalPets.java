@@ -1,5 +1,12 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_BREED_LABRADOR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_NAME_DOGGY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_NAME_SNOOPY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_NOTE_CUTE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_NOTE_FRIENDLY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_SPECIES_DOG;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,16 +19,16 @@ import seedu.address.model.person.Pet;
 public class TypicalPets {
 
     public static final Pet SNOOPY = new PetBuilder()
-            .withName("Snoopy")
-            .withSpecies("Dog")
-            .withBreed("Labrador")
-            .withNote("Very friendly")
+            .withName(VALID_PET_NAME_SNOOPY)
+            .withSpecies(VALID_PET_SPECIES_DOG)
+            .withBreed(VALID_PET_BREED_LABRADOR)
+            .withNote(VALID_PET_NOTE_FRIENDLY)
             .build();
     public static final Pet DOGGY = new PetBuilder()
-            .withName("Doggy")
-            .withSpecies("Dog")
-            .withBreed("Labrador")
-            .withNote("Very cute")
+            .withName(VALID_PET_NAME_DOGGY)
+            .withSpecies(VALID_PET_SPECIES_DOG)
+            .withBreed(VALID_PET_BREED_LABRADOR)
+            .withNote(VALID_PET_NOTE_CUTE)
             .build();
     public static final Pet BARKUS = new PetBuilder()
             .withName("Barkus")
