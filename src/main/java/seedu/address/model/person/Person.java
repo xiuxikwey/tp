@@ -2,8 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,7 +26,7 @@ public class Person {
     private final Email email;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Pet> pets = new HashSet<>();
+    private final List<Pet> pets = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -36,6 +38,19 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Person person, List<Pet> pets) {
+        requireAllNonNull(person, pets);
+        this.name = person.getName();
+        this.phone = person.getPhone();
+        this.email = person.getEmail();
+        this.address = person.getAddress();
+        this.tags.addAll(person.getTags());
+        this.pets.addAll(pets);
     }
 
     /**
@@ -84,7 +99,7 @@ public class Person {
     /**
      * Returns a mutable pet set.
      */
-    public Set<Pet> getPets() {
+    public List<Pet> getPets() {
         return pets;
     }
 

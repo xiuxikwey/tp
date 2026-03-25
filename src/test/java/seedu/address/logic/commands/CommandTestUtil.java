@@ -78,9 +78,19 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+    public static final String VALID_PET_NAME = "Snoopy";
+    public static final String VALID_PET_SPECIES = "dog";
+    public static final String VALID_PET_BREED = "beagle";
+    public static final String VALID_PET_NAME_DESC = " " + PREFIX_NAME + VALID_PET_NAME;
+    public static final String VALID_PET_SPECIES_DESC = " " + PREFIX_SPECIES + VALID_PET_SPECIES;
+    public static final String VALID_PET_BREED_DESC = " " + PREFIX_BREED + VALID_PET_BREED;
+    public static final String VALID_PET_NOTE_CUTE_DESC = " " + PREFIX_NOTE + VALID_PET_NOTE_CUTE;
 
-    public static final EditClientCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditClientCommand.EditPersonDescriptor DESC_BOB;
+    public static final String INVALID_PET_NAME = " ";
+    public static final String INVALID_PET_NAME_DESC = " " + PREFIX_NAME + INVALID_PET_NAME;
+
+    public static final EditPersonCommand.EditPersonDescriptor DESC_AMY;
+    public static final EditPersonCommand.EditPersonDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

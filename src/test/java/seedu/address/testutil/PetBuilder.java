@@ -1,11 +1,15 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BREED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIES;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Pet;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Pet objects.
  */
 public class PetBuilder {
 
@@ -20,18 +24,17 @@ public class PetBuilder {
     private Name note;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code PetBuilder} with the default details.
      */
     public PetBuilder() {
         name = new Name(DEFAULT_NAME);
         species = new Name(DEFAULT_SPECIES);
         breed = new Name(DEFAULT_BREED);
         note = new Name(DEFAULT_NOTE);
-
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PetBuilder with the data of {@code petToCopy}.
      */
     public PetBuilder(Pet petToCopy) {
         name = petToCopy.getName();
@@ -41,7 +44,7 @@ public class PetBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Pet} that we are building.
      */
     public PetBuilder withName(String name) {
         this.name = new Name(name);
@@ -78,4 +81,15 @@ public class PetBuilder {
     public Pet build() {
         return new Pet(name, species, breed, note);
     }
+
+    /**
+     * Returns user input to recreate descriptor.
+     */
+    public String getCommandFormat() {
+        return PREFIX_NAME.toString() + name + " "
+                + PREFIX_SPECIES + species + " "
+                + PREFIX_BREED + breed + " "
+                + PREFIX_NOTE + note;
+    }
+
 }

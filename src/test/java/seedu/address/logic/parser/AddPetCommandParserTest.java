@@ -14,7 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.SPECIES_DESC_DOG;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_NAME_SNOOPY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PET_NAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BREED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -93,10 +93,10 @@ public class AddPetCommandParserTest {
                 AddPetCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_PET_NAME_SNOOPY + PHONE_DESC_AMY, expectedMessage);
+        assertParseFailure(parser, VALID_PET_NAME + PHONE_DESC_AMY, expectedMessage);
 
         // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_SNOOPY + VALID_PHONE_AMY,
+        assertParseFailure(parser, VALID_PET_NAME + VALID_PHONE_AMY,
                 expectedMessage);
     }
 

@@ -32,7 +32,7 @@ public class TypicalPets {
             .build();
     public static final Pet BARKUS = new PetBuilder()
             .withName("Barkus")
-            .withSpecies("Dog")
+            .withSpecies(VALID_PET_SPECIES_DOG)
             .withBreed("Poodle")
             .withNote("Very energetic")
             .build();

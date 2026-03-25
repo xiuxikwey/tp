@@ -14,8 +14,8 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPets.DOGGY;
 import static seedu.address.testutil.TypicalPets.SNOOPY;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -69,11 +69,11 @@ public class PersonTest {
 
     @Test
     public void addPet() {
-        Person editedAlice = ALICE.addPet(SNOOPY).addPet(DOGGY);
-        Set<Pet> expectedPets = new HashSet<Pet>();
+        Person aliceCopy = ALICE.addPet(SNOOPY).addPet(DOGGY);
+        List<Pet> expectedPets = new ArrayList<Pet>();
         expectedPets.add(SNOOPY);
         expectedPets.add(DOGGY);
-        assertEquals(expectedPets, editedAlice.getPets());
+        assertEquals(expectedPets, aliceCopy.getPets());
     }
 
     @Test

@@ -255,9 +255,7 @@ public class UniquePersonListTest {
 
     @Test
     public void removePet_existingPet_removesPet() {
-        Person personWithPet = new PersonBuilder(ALICE)
-                .withPet(SNOOPY)
-                .build();
+        Person personWithPet = new PersonBuilder(ALICE).withPet(SNOOPY).build();
         uniquePersonList.add(personWithPet);
         uniquePersonList.removePet(SNOOPY, ALICE.getPhone());
         Person expectedPerson = new PersonBuilder(ALICE).build(); // without pets
