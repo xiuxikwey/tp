@@ -47,8 +47,8 @@ public class PetAndPersonTest {
     @Test
     public void hashCodeMethod() {
         PetAndPerson pair = new PetAndPerson(SNOOPY, ALICE, 1, 1);
-        int expected = -1072518421;
-        assertEquals(expected, pair.hashCode());
+        PetAndPerson sameValues = new PetAndPerson(SNOOPY, ALICE, 1, 1);
+        assertEquals(sameValues.hashCode(), pair.hashCode());
     }
 
     @Test

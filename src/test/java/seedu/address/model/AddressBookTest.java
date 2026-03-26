@@ -20,9 +20,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Pet;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PetBuilder;
 
 public class AddressBookTest {
 
@@ -82,14 +84,15 @@ public class AddressBookTest {
 
     @Test
     public void hasPet_petInList_returnsTrue() {
-        Person editedAlice = new PersonBuilder(ALICE).withPets(SNOOPY).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPet(SNOOPY).build();
         addressBook.addPerson(editedAlice);
         assertTrue(addressBook.hasPet(editedAlice.getPhone(), SNOOPY));
     }
 
     @Test
     public void hasPet_wrongOwner_returnsFalse() {
-        Person editedAlice = new PersonBuilder(ALICE).withPhone("98765432").withPets(SNOOPY).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPhone("98765432")
+                .withPet(SNOOPY).build();
         addressBook.addPerson(editedAlice);
         assertFalse(addressBook.hasPet(new Phone("10000000"), SNOOPY));
     }
@@ -127,6 +130,32 @@ public class AddressBookTest {
     public void removePet_personNotFound_throwsPersonNotFoundException() {
         assertThrows(seedu.address.model.person.exceptions.PersonNotFoundException.class, () ->
             addressBook.removePet(SNOOPY, ALICE.getPhone()));
+    }
+
+    @Test
+    public void addPet_addsPetToPerson() {
+        AddressBook ab = new AddressBook();
+        Person person = new seedu.address.testutil.PersonBuilder().withPhone("88888888").build();
+        ab.addPerson(person);
+        Pet pet = new PetBuilder().build();
+        ab.addPet(pet, person.getPhone());
+        Person found = ab.getPersonList().stream().filter(
+                p -> p.getPhone().equals(
+                        person.getPhone())).findFirst().get();
+        assertTrue(found.getPets().contains(pet));
+    }
+
+    @Test
+    public void removePet_removesPetFromPerson() {
+        AddressBook ab = new AddressBook();
+        Pet pet = new PetBuilder().build();
+        Person person = new seedu.address.testutil.PersonBuilder()
+                .withPhone("88888888").withPet(pet).build();
+        ab.addPerson(person);
+        ab.removePet(pet, person.getPhone());
+        Person found = ab.getPersonList().stream().filter(
+                p -> p.getPhone().equals(person.getPhone())).findFirst().get();
+        assertFalse(found.getPets().contains(pet));
     }
 
     /**
