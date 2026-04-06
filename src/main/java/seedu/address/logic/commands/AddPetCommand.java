@@ -21,7 +21,8 @@ import seedu.address.model.person.Phone;
  */
 public class AddPetCommand extends Command {
 
-    public static final String COMMAND_WORD = "addPet";
+    public static final String COMMAND_WORD = "addpet";
+    public static final String ALIAS = "ap";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a pet to the address book. "
             + "Parameters: "

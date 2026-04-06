@@ -72,10 +72,10 @@ Registers a new client. The new client will be shown on the list.
 
 <box type="tip" seamless>
 
-**Important:** Clients can have the same name, but never the same phone number
+**Important:** Clients cannot have the same phone number
 </box>
 
-Format: `addClient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `addClient p/PHONE_NUMBER [n/NAME] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 Examples:
 * `addClient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -214,7 +214,7 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**AddClient** | `addClient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `addClient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend`
+**AddClient** | `addClient [n/NAME] p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `addClient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend`
 **AddPet** | `addPet n/NAME p/PHONE_NUMBER​` <br> e.g., `addPet n/Meowy p/22224444`
 **Clear**  | `clear`
 **DeleteClient** | `deleteClient POSITION`<br> e.g., `deleteClient 3`
@@ -226,3 +226,12 @@ e.g.,`editPet 2 n/Pongo`
 **Find**   | `find KEYWORD...`<br> e.g., `find James dog`
 **Help**   | `help`
 **List**   | `list`
+
+## Short-form commands
+For advanced users, Hair Pawter supports short-forms for some commands.
+* `AddClient` can be shortened to `ac`
+* `AddPet` can be shortened to `ap`
+* `EditClient` can be shortened to `ec`
+* `EditPet` can be shortened to `ep`
+* `DeleteClient` can be shortened to `dc`
+* `DeletePet` can be shortened to `dp`

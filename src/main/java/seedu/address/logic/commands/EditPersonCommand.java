@@ -33,7 +33,8 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "editClient";
+    public static final String COMMAND_WORD = "editclient";
+    public static final String ALIAS = "ec";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the client "
             + "with the given POSITION. "
@@ -52,7 +53,7 @@ public class EditPersonCommand extends Command {
     public static final String MESSAGE_INDEX_TOO_SMALL = "The POSITION provided should be 1 or more";
     public static final String MESSAGE_INDEX_TOO_LARGE = "The POSITION provided is too large";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This client already exists.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "A client with this phone number already exists.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
