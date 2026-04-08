@@ -135,22 +135,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-#### Person-Pet Relationship
-
-Each `Person` (client) contains a `List<Pet>` representing their owned pets. This is a **one-to-many** relationship: one client can own multiple pets.
-
-**Key characteristics of the Person-Pet model:**
-
-* **Immutability**: `Person` objects are immutable. Operations like `addPet(Pet)` and `removePet(Pet)` return new `Person` instances rather than modifying the existing object. This design ensures thread safety and simplifies state management.
-
-* **Client identity**: A client's uniqueness is determined by their **phone number**. Two clients with the same phone number are considered the same person, regardless of other fields. This is implemented in `Person#isSamePerson()`.
-
-* **Pet identity**: A pet's uniqueness within an owner is determined by the **pet name**. Two pets belonging to the same owner cannot have the same name. This is validated when adding or editing pets.
-
-* **Pet indexing**: Pets are indexed **globally** across all clients in the displayed list. For example, if Client 1 has pets A and B, and Client 2 has pet C, their indexes would be 1, 2, and 3 respectively. This sequential indexing is used by `editPet` and `deletePet` commands.
-
-* **Pet-Client linking**: When adding a pet via `addPet`, the pet is linked to a client using the client's **phone number** (not the client's index). This ensures the link remains stable even when the client list is filtered or reordered.
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
@@ -167,6 +151,22 @@ The `Storage` component,
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### \[Actual\] Person-pet relationship
+
+Each `Person` (client) contains a `List<Pet>` representing their owned pets. This is a **one-to-many** relationship: one client can own multiple pets.
+
+**Key characteristics of the Person-Pet model:**
+
+* **Immutability**: `Person` objects are immutable. Operations like `addPet(Pet)` and `removePet(Pet)` return new `Person` instances rather than modifying the existing object. This design ensures thread safety and simplifies state management.
+
+* **Client identity**: A client's uniqueness is determined by their **phone number**. Two clients with the same phone number are considered the same person, regardless of other fields. This is implemented in `Person#isSamePerson()`.
+
+* **Pet identity**: A pet's uniqueness within an owner is determined by the **pet name**. Two pets belonging to the same owner cannot have the same name. This is validated when adding or editing pets.
+
+* **Pet indexing**: Pets are indexed **globally** across all clients in the displayed list. For example, if Client 1 has pets A and B, and Client 2 has pet C, their indexes would be 1, 2, and 3 respectively. This sequential indexing is used by `editPet` and `deletePet` commands.
+
+* **Pet-Client linking**: When adding a pet via `addPet`, the pet is linked to a client using the client's **phone number** (not the client's index). This ensures the link remains stable even when the client list is filtered or reordered.
 
 ### \[Proposed\] Undo/redo feature
 
