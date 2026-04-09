@@ -32,6 +32,11 @@ public class PhotoPathTest {
         assertFalse(PhotoPath.isValidPhotoPath("  ")); // spaces only
         assertFalse(PhotoPath.isValidPhotoPath(" ^")); // starts with space
 
+        // invalid file extension
+        assertFalse(PhotoPath.isValidPhotoPath("/images/photo.txt"));
+        assertFalse(PhotoPath.isValidPhotoPath("/images/photo.pdf"));
+        assertFalse(PhotoPath.isValidPhotoPath("/images/photo.docx"));
+
         // non-existing file path
         assertFalse(PhotoPath.isValidPhotoPath("/images/non_existing_image.png"));
 
@@ -39,7 +44,10 @@ public class PhotoPathTest {
         assertFalse(PhotoPath.isValidPhotoPath("images/address_book_32.png"));
 
         // valid file path and exists but is not a file
-        assertFalse(PhotoPath.isValidPhotoPath("/images"));
+        assertFalse(PhotoPath.isValidPhotoPath("/images.test/"));
+
+        // valid file path and file exists but is not regular file (e.g. directory)
+        assertFalse(PhotoPath.isValidPhotoPath("images.test/"));
 
         // valid photo path
         assertTrue(PhotoPath.isValidPhotoPath("/images/placeholder-pet-logo.png"));

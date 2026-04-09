@@ -53,13 +53,10 @@ public class PhotoPath {
             return false;
         }
 
-        // Only attempt classpath lookup if the path looks like a file (has an
-        // extension)
-        if (test.contains(".")) {
-            InputStream stream = seedu.address.MainApp.class.getResourceAsStream(test);
-            if (stream != null) {
-                return true;
-            }
+        // Attempt classpath resource loading
+        InputStream stream = seedu.address.MainApp.class.getResourceAsStream(test);
+        if (stream != null) {
+            return true;
         }
 
         // Then, try as a filesystem path using java.nio.file.Path
