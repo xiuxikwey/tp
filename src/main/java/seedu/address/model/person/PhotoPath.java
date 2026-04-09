@@ -3,9 +3,11 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Represents a photo path for a Pet in the address book.
@@ -14,7 +16,8 @@ import java.io.InputStream;
  */
 public class PhotoPath {
 
-    public static final String MESSAGE_CONSTRAINTS = "Photo path must be a valid file path to an existing image file.";
+    public static final String MESSAGE_CONSTRAINTS = "Photo path must be a valid file path to an "
+        + "existing image file and cannot be empty.";
 
     public final String value;
 
@@ -26,7 +29,7 @@ public class PhotoPath {
     public PhotoPath(String path) {
         requireNonNull(path);
         checkArgument(isValidPhotoPath(path), MESSAGE_CONSTRAINTS);
-        value = path.trim();
+        value = path;
     }
 
     /**
@@ -34,33 +37,26 @@ public class PhotoPath {
      * The path must not be blank and the file must exist.
      */
     public static boolean isValidPhotoPath(String test) {
-        if (test == null || test.trim().isEmpty()) {
+        if (test == null || test.isBlank()) {
             return false;
         }
 
-        String trimmedPath = test.trim();
-
-        // Check if given path is a classpath
-        if (trimmedPath.startsWith("/")) {
-            // If file has no extension, it's likely a directory
-            if (!trimmedPath.contains(".")) {
-                return false;
-            }
-            InputStream stream = seedu.address.MainApp.class.getResourceAsStream(trimmedPath);
+        // Only attempt classpath lookup if the path looks like a file (has an
+        // extension)
+        if (test.contains(".")) {
+            InputStream stream = seedu.address.MainApp.class.getResourceAsStream(test);
             if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    // Ignore
-                }
                 return true;
             }
-            return false;
         }
 
-        // Check if given path is a file system path
-        File file = new File(trimmedPath);
-        return file.exists() && file.isFile();
+        // Then, try as a filesystem path using java.nio.file.Path
+        try {
+            Path path = Paths.get(test);
+            return Files.exists(path) && Files.isRegularFile(path);
+        } catch (InvalidPathException e) {
+            return false;
+        }
     }
 
     @Override
