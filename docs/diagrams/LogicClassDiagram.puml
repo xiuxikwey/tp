@@ -6,77 +6,39 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 package Logic as LogicPackage {
 
+' Group all CommandParser subclasses
 package ParserClasses {
-Class AddPersonCommandParser
-Class AddPetCommandParser
-Class DeletePersonCommandParser
-Class DeletePetCommandParser
-Class EditPersonCommandParser
-Class EditPetCommandParser
-Class FindCommandParser
-Class AddressBookParser
+class CommandParserSubclasses as "CommandParser subclasses\n(AddPerson, AddPet, etc.)"
 }
 
-Class AddPersonCommand
-Class AddPetCommand
-Class DeletePersonCommand
-Class DeletePetCommand
-Class EditPersonCommand
-Class EditPetCommand
-Class FindCommand
-Class ListCommand
-Class HelpCommand
-Class ExitCommand
-Class ClearCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
+' Group all Command subclasses
+class CommandSubclasses as "Command subclasses\n(Add, Delete, Edit, Find, List, etc.)"
 
-Class "<<interface>>\nLogic" as Logic
-Class LogicManager
+class CommandResult
+class "{abstract}\nCommand" as Command
+class "<<interface>>\nLogic" as Logic
+class LogicManager
 }
 
 package Model {
-Class HiddenModel #FFFFFF
+class Model
 }
 
 package Storage {
+class Storage
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
-
-LogicManager .right.|> Logic
-LogicManager -right->"1" ParserClasses
-ParserClasses ..> AddPersonCommand : <<create>>
-ParserClasses ..> AddPetCommand : <<create>>
-ParserClasses ..> DeletePersonCommand : <<create>>
-ParserClasses ..> DeletePetCommand : <<create>>
-ParserClasses ..> EditPersonCommand : <<create>>
-ParserClasses ..> EditPetCommand : <<create>>
-ParserClasses ..> FindCommand : <<create>>
-
-AddPersonCommand -up-|> Command
-AddPetCommand -up-|> Command
-DeletePersonCommand -up-|> Command
-DeletePetCommand -up-|> Command
-EditPersonCommand -up-|> Command
-EditPetCommand -up-|> Command
-FindCommand -up-|> Command
-ListCommand -up-|> Command
-HelpCommand -up-|> Command
-ExitCommand -up-|> Command
-ClearCommand -up-|> Command
-
-LogicManager .left.> Command : <<call>>
-
+' Key relationships
+LogicManager ..|> Logic
+LogicManager --> ParserClasses
+ParserClasses ..> CommandSubclasses : <<create>>
+CommandSubclasses --|> Command
 LogicManager --> Model
 LogicManager --> Storage
-Storage --[hidden] Model
-Command .[hidden]up.> Storage
-Command .right.> Model
-note right of AddPetCommand: Pet-related commands are\ncustom features added\nto the address book
-
 Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult : <<create>>
+LogicManager ..> CommandResult
+Command ..> CommandResult : <<create>>
+LogicManager ..> Command : <<call>>
+Command ..> Model
+
 @enduml

@@ -93,16 +93,20 @@ The `UI` component,
 
 **API** : [`Logic.java`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
-Here's a class diagram of the `Logic` component:
+Here's a **simplified** class diagram of the `Logic` component:
 
 <puml src="diagrams/LogicClassDiagram.puml" width="550"/>
 
-The diagram shows all the implemented commands in the system:
-* **Client/Person Commands**: `AddPersonCommand`, `DeletePersonCommand`, `EditPersonCommand` - for managing clients
-* **Pet Commands**: `AddPetCommand`, `DeletePetCommand`, `EditPetCommand` - for managing pets (custom feature)
-* **Utility Commands**: `FindCommand`, `ListCommand`, `HelpCommand`, `ExitCommand`, `ClearCommand`
+<box type="info" seamless>
+This diagram groups similar classes (e.g., all command parsers, all command subclasses) and omits repetitive details for clarity. Only key relationships and a few representative commands/parsers are shown. Other command and parser classes are omitted for simplicity.
+</box>
 
-Each command has a corresponding parser class that handles parsing user input (e.g., `AddPersonCommandParser`, `AddPetCommandParser`, etc.).
+The diagram shows representative commands in the system:
+* **Client/Person Commands**: e.g., `AddPersonCommand`, `DeletePersonCommand`
+* **Pet Commands**: e.g., `AddPetCommand`, `DeletePetCommand`
+* **Utility Commands**: e.g., `FindCommand`, `ListCommand`
+
+Each command has a corresponding parser class that handles parsing user input (e.g., `AddPersonCommandParser`, `AddPetCommandParser`). These are shown as grouped in the diagram for simplicity.
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deleteClient 1")` API call as an example.
 
