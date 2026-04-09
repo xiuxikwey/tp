@@ -43,7 +43,11 @@ public class PhotoPath {
         }
 
         // Only accept the following file extensions: .jpg, .jpeg, .png, .gif, .bmp, .jfif
-        String extension = test.substring(test.lastIndexOf(".")).toLowerCase();
+        int dotIndex = test.lastIndexOf(".");
+        if (dotIndex == -1) {
+            return false;
+        }
+        String extension = test.substring(dotIndex).toLowerCase();
         if (!extension.equals(".jpg") && !extension.equals(".jpeg") && !extension.equals(".png")
                 && !extension.equals(".gif") && !extension.equals(".bmp") && !extension.equals(".jfif")) {
             return false;

@@ -78,4 +78,11 @@ public class PhotoPathTest {
         // Test that a directory path returns false even if it exists
         assertFalse(PhotoPath.isValidPhotoPath(tempDir.getAbsolutePath()));
     }
+
+    @Test
+    public void isValidPhotoPath_invalidPathCharacters_returnsFalse() {
+        // A path with NUL character has a valid extension but triggers InvalidPathException
+        // from Paths.get(), covering the catch (InvalidPathException) branch
+        assertFalse(PhotoPath.isValidPhotoPath("invalid\0path.png"));
+    }
 }

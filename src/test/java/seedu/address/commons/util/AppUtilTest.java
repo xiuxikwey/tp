@@ -106,4 +106,12 @@ public class AppUtilTest {
         // Filesystem path should not be mistaken for a classpath resource
         assertNotNull(AppUtil.loadImage(tempImage.getAbsolutePath()));
     }
+
+    @Test
+    public void loadImage_nonExistentFileSystemPath_loadsFallbackImage(@TempDir File tempDir) {
+        // A filesystem path that doesn't exist and isn't a classpath resource
+        // This exercises the !Files.exists(photoPath) branch in loadImage
+        String nonExistentPath = tempDir.getAbsolutePath() + "/does_not_exist.png";
+        assertNotNull(AppUtil.loadImage(nonExistentPath));
+    }
 }
