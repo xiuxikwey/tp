@@ -137,6 +137,10 @@ Examples:
 * Notes exists to record down important information about the pet. This can be identifying information
 like leash colour, or allergies and quirks of the pet. Use this flexibly!
 
+**More about `[ph/PHOTO]`:**<br>
+
+* Paste a photo path here. In your file explorer, you can right-click on your photo and select `Copy as path` or `Copy as Pathname`, then paste into this field with `Ctrl` + `v`.
+
 </box>
 
 <br><br>
@@ -285,7 +289,7 @@ Furthermore, certain edits can cause the app to behave in unexpected ways (e.g.,
 
 
 **Q**: What should I do if I have clients who do not have a phone?<br>
-**A**: You can put their preferred contact method under [p/PHONE_NUMBER].
+**A**: You can put their preferred contact method under `p/PHONE_NUMBER`.
 
 
 **Q**: How do I reorder my clients?<br>
