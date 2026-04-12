@@ -309,7 +309,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |----------|---------|--------------|-----------------|--------|
 | `* * *`  | new user | view the user guide easily | learn more about how to use the product | Implemented |
 | `* * *`  | user     | add a new pet              | keep track of a new pet | Implemented |
-| `* * *`  | user     | record a pet's details (name, breed, date of birth) | identify each pet easily | Implemented |
+| `* * *`  | user     | record a pet's details (name, breed) | identify each pet easily | Implemented |
 | `* * *`  | user     | add a new client and their contact information | keep track of a new client | Implemented |
 | `* * *`  | user     | view a pet's information   | view the information of a pet that I need to groom | Implemented |
 | `* * *`  | user     | view a client's details    | see the details of a client to contact | Implemented |
@@ -399,9 +399,8 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 **Extensions**
 
-* 1a. There are no existing clients.
+* 1a. There are no existing clients to add pets to.
 
-    * 1a1. System notifies user.
      Use case ends.
 
 * 2a. The given parameters are invalid.
