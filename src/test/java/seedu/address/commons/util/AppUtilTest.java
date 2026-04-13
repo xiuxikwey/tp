@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -43,6 +46,30 @@ public class AppUtilTest {
     public void loadImage_invalidFilePathImage_loadsFallbackImage() {
         String invalidFilePath = System.getProperty("user.dir") + "/src/main/resources/images/non_existing_image.png";
         assertNotNull(AppUtil.loadImage(invalidFilePath));
+    }
+
+    @Test
+    public void loadImage_relativePathInDataPhotos_loadsImageSuccessfully() throws IOException {
+        Path dataPhotos = Paths.get("data", "photos");
+        Files.createDirectories(dataPhotos);
+        Path tempImage = Files.createTempFile(dataPhotos, "pet-", ".png");
+
+        try (InputStream input = AppUtil.class.getResourceAsStream("/images/placeholder-pet-logo.png")) {
+            Files.copy(input, tempImage, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        assertNotNull(AppUtil.loadImage(tempImage.getFileName().toString()));
+        Files.deleteIfExists(tempImage);
+    }
+
+    @Test
+    public void loadImage_directoryPath_loadsFallbackImage(@TempDir File tempDir) {
+        assertNotNull(AppUtil.loadImage(tempDir.getAbsolutePath()));
+    }
+
+    @Test
+    public void loadImage_invalidPathString_loadsFallbackImage() {
+        assertNotNull(AppUtil.loadImage("invalid\0path.png"));
     }
 
     @Test

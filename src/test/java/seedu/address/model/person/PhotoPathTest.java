@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -99,5 +103,51 @@ public class PhotoPathTest {
     public void isValidPhotoPath_invalidPathCharacters_returnsFalse() {
         // Test to trigger InvalidPathException
         assertFalse(PhotoPath.isValidPhotoPath("invalid\0path.png"));
+    }
+
+    @Test
+    public void isValidPhotoPath_relativePathInDataPhotos_returnsTrue() throws IOException {
+        Path photosDir = Paths.get("data", "photos");
+        Files.createDirectories(photosDir);
+        Path tempImage = Files.createTempFile(photosDir, "photo-path-test-", ".png");
+
+        try {
+            assertTrue(PhotoPath.isValidPhotoPath(tempImage.getFileName().toString()));
+        } finally {
+            Files.deleteIfExists(tempImage);
+        }
+    }
+
+    @Test
+    public void isValidPhotoPath_absoluteRegularFileWithImageExtension_returnsFalse() throws IOException {
+        Path imagePath = Paths.get("data", "photos", "absolute-valid.jpg").toAbsolutePath();
+        Files.createDirectories(imagePath.getParent());
+        Files.createFile(imagePath);
+        try {
+            assertFalse(PhotoPath.isValidPhotoPath(imagePath.toString()));
+        } finally {
+            Files.deleteIfExists(imagePath);
+        }
+    }
+
+    @Test
+    public void isValidPhotoPath_absolutePathToDirectoryWithImageExtension_returnsFalse(@TempDir File tempDir)
+            throws IOException {
+        Path dirPath = tempDir.toPath().resolve("folder.png");
+        Files.createDirectory(dirPath);
+        assertFalse(PhotoPath.isValidPhotoPath(dirPath.toString()));
+    }
+
+    @Test
+    public void isValidPhotoPath_relativePathOutsideDataPhotosWhenFileExists_returnsFalse() throws IOException {
+        Path tempImage = Paths.get("data", "photos").resolve("../outside.png").normalize();
+        Files.createDirectories(tempImage.getParent());
+        Files.createFile(tempImage);
+
+        try {
+            assertFalse(PhotoPath.isValidPhotoPath("../outside.png"));
+        } finally {
+            Files.deleteIfExists(tempImage);
+        }
     }
 }
