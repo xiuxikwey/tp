@@ -76,7 +76,7 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 Additionally, `PetPersonCard` displays a client on the right and all the pets they own on the left. Hence, it contains 1 `PersonCard` and any number of `PetCard` objects.
 This ensures that all pets of a client are shown together, which is easier for our users to handle.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -121,7 +121,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPersonCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPersonCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddPersonCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* All `XYZCommandParser` classes (e.g., `AddPersonCommandParser`, `DeletePersonCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -132,7 +132,7 @@ The `Model` component,
 
 * stores the address book data i.e., all `Person` (client) objects (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPrefs` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPrefs` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components).
 
 <puml src="diagrams/ModelSequenceDiagram.puml" alt="Interactions Inside the Model Component for the `deleteClient 1` Command" />
@@ -151,7 +151,7 @@ How the `Model` component works:
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from both `AddressBookStorage` and `UserPrefsStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -194,11 +194,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `deleteClient 5` command to delete the 5th client in the address book. The `deleteClient` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `deleteClient 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `deleteClient 5` command to delete the 5th client. Internally, the command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `deleteClient 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `addClient n/David p/PHONE …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `addClient n/David p/PHONE …​` to add a new person. The command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -208,7 +208,7 @@ Step 3. The user executes `addClient n/David p/PHONE …​` to add a new person
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the client was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -269,7 +269,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## **Documentation, logging, testing, configuration, DevOps**
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -309,7 +309,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |----------|---------|--------------|-----------------|--------|
 | `* * *`  | new user | view the user guide easily | learn more about how to use the product | Implemented |
 | `* * *`  | user     | add a new pet              | keep track of a new pet | Implemented |
-| `* * *`  | user     | record a pet's details (name, breed, date of birth) | identify each pet easily | Implemented |
+| `* * *`  | user     | record a pet's details (name, breed) | identify each pet easily | Implemented |
 | `* * *`  | user     | add a new client and their contact information | keep track of a new client | Implemented |
 | `* * *`  | user     | view a pet's information   | view the information of a pet that I need to groom | Implemented |
 | `* * *`  | user     | view a client's details    | see the details of a client to contact | Implemented |
@@ -399,8 +399,9 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 **Extensions**
 
-* 1a. There are no existing clients.
+* 1a. There are no existing clients to add pets to.
 
+    * 1a1. System notifies user.
      Use case ends.
 
 * 2a. The given parameters are invalid.
@@ -426,6 +427,7 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 * 1a. There are no clients to delete.
 
+    * 1a1. System notifies user.
      Use case ends.
 
 * 2a. The given parameters are invalid.
@@ -452,6 +454,7 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 * 1a. There are no pets to delete.
 
+    * 1a1. System notifies user.
      Use case ends.
 
 * 2a. The given parameters are invalid.
@@ -466,7 +469,7 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 **MSS**
 
-1.  User finds the client to edit.
+1.  User finds a client to edit.
 2.  User requests to edit the client.
 3.  System edits the client and displays the updated list.
 
@@ -476,6 +479,7 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 * 1a. There are no clients to edit.
 
+    * 1a1. System notifies user.
      Use case ends.
 
 * 2a. The given parameters are invalid.
@@ -490,7 +494,7 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 **MSS**
 
-1.  User finds the pet to edit.
+1.  User finds a pet to edit.
 2.  User requests to edit the pet.
 3.  System edits the pet and displays the updated list.
 
@@ -500,6 +504,7 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
 * 1a. There are no pets to edit.
 
+    * 1a1. System notifies user.
      Use case ends.
 
 * 2a. The given parameters are invalid.
@@ -510,52 +515,50 @@ A **Precondition** is that the system is displaying the list of clients and pets
 
       Use case resumes at step 3.
 
-**Use case 7: Search for pet of client**
+**Use case 7: Search for pet or client**
 
 **MSS**
 
-1.  User looks for the client using keywords.
-2.  User looks for their pet.
+1.  User requests to filter the list.
+2.  System displays a filtered list.
+3.  User looks for their pet or client.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The pet does not exist.
+* 2a. The user wants to use a different filter.
 
-     Use case ends.
+     Use case resumes at step 1.
 
-**Use case 8: Search for client who owns pet**
+**Use case 8: Delete all records**
 
 **MSS**
 
-1.  User looks for the pet using keywords.
-2.  User looks for the client.
+1.  User requests to clear all stored information.
+2.  System deletes all records and displays the empty list.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. There are many pets with the same name.
+* 1a. The records are already empty.
 
-    * 1a1. User decides which client is the one they want.
-
-      Use case resumes at step 2.
+     Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 clients with 5 pets each without a noticeable sluggishness in performance for typical usage.
+1.  Should work on any _mainstream OS_ as long as it has `Java 17` or above installed.
+2.  Should be able to hold up to 200 clients with 3 pets each without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. The response to any use action should become visible within 5 seconds.
+4. The response to any user action should become visible within 2 seconds.
 5. The app should not crash due to a user action (e.g., entering an invalid command, or deleting a client that does not exist).
-6. The app should not crash due to a system error (e.g., hard disk failure, or running out of memory).
-7. The app should not crash due to a programmer error (e.g., null pointer exception, or array index out of bounds exception).
-8. Should not have a steep learning curve for users who are reasonably comfortable using CLI apps.
+6. The app should not crash due to a programmer error (e.g., null pointer exception, or array index out of bounds exception).
+7. Should not have a steep learning curve for users who are reasonably comfortable using CLI apps.
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Mainstream OS**: Windows, Linux, Unix, macOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Above average typing speed**: 40 words per minute (wpm) or above, where a word is defined as 5 characters including spaces.
 * **Noticeable sluggishness**: A noticeable delay in the response of the app to user actions, such as a delay in showing the result of a command, or a delay in updating the UI after a command is executed.

@@ -21,7 +21,7 @@ so that after grooming a pet, you can quickly find the details of the owner and 
 
 1. [Install](https://se-education.org/guides/tutorials/javaInstallation.html) `Java 17` or higher to your computer.
 
-   * `Java 17` is the programming language that Hairy Pawter runs on.
+   * `Java 17` is reputable software that Hairy Pawter needs to function.
 <br><br>
 
 1. Download `hairypawter.jar` from the latest release [here](https://github.com/AY2526S2-CS2103T-F14-2/tp/releases).
@@ -77,7 +77,7 @@ In the app, type a command in the command box (at the bottom) and press Enter to
   e.g. `[t/TAG]…` can be used as `t/friend t/family`
 
 * Items can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
@@ -96,18 +96,24 @@ Format: `help`
 
 ### Adding a client: `addClient`
 
-Registers a new client. The new client will be shown on the list.
+Registers a new client. The new client will be shown at the top of the list.
 
 <box type="tip" seamless>
 
 **Important:** Clients cannot have the same phone number.
 </box>
 
-Format: `addClient p/PHONE_NUMBER [n/NAME] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+Format: `addClient p/PHONE [n/NAME] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 
 Examples:
 * `addClient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `addClient n/Betsy Crowe t/friend e/betsycrowe@example.com a/Crown street p/1234567`
+
+Remarks:
+The new client may not be shown if there is a `find` condition that it does not satisfy.
+If this happens, use `list` to show all clients.
+
+Optional values will appear as `-`.
 
 <box type="info" seamless>
 
@@ -126,15 +132,18 @@ Registers a new pet of a client. The name of the pet and the **phone number of t
 
 Note: Pets can only be added after their owner has been added.
 
-Format: `addPet n/NAME p/PHONE_NUMBER [s/SPECIES] [b/BREED] [nt/NOTES] [ph/PHOTO]`
+Format: `addPet n/NAME p/PHONE [s/SPECIES] [b/BREED] [nt/NOTES] [ph/PHOTO]`
 
 Examples:
 * `addPet n/Snowy p/0000 s/Dog b/Wire Fox Terrier (White)`
 * `addPet n/Meowy p/123456`
 
-**Using `[nt/NOTES]...` to your advantage:**<br>
+Remarks:
+Optional values will appear as `Unknown` or `None`.
 
-* Notes exists to record down important information about the pet. This can be identifying information
+**Using `[nt/NOTES]` to your advantage:**<br>
+
+* `[nt/NOTES]` exists to record down important information about the pet. This can be identifying information
 like leash colour, or allergies and quirks of the pet. Use this flexibly!
 
 **More about `[ph/PHOTO]`:**<br>
@@ -190,7 +199,10 @@ Examples:
 
 ### Locating clients and pets by keywords: `find`
 
-Finds pets and clients who match **all** of the given keywords.
+Shows pets and clients who match **all** of the given keywords.
+This searches all the records, including client tags and pet notes.
+
+This restriction will remain until `list` is called.
 
 * The match is partial and case-insensitive. e.g `Roy` will match `Leroy`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -218,8 +230,8 @@ Note: All the pets of the specified client will be deleted too.
 Format: `deleteClient POSITION`
 
 Examples:
-* `list` followed by `delete 2` deletes the client with `POSITION` 2 in the displayed list.
-* `find Betsy` followed by `delete 1` deletes the 1st client in the results of the `find` command.
+* `list` followed by `deleteClient 2` deletes the client with `POSITION` 2 in the displayed list.
+* `find Betsy` followed by `deleteClient 1` deletes the 1st client in the results of the `find` command.
 
 <br><br>
 
@@ -289,7 +301,7 @@ Furthermore, certain edits can cause the app to behave in unexpected ways (e.g.,
 
 
 **Q**: What should I do if I have clients who do not have a phone?<br>
-**A**: You can put their preferred contact method under `p/PHONE_NUMBER`.
+**A**: You can put their preferred contact method under `p/PHONE`.
 
 
 **Q**: How do I reorder my clients?<br>
@@ -313,12 +325,12 @@ One way to do this is to close the app and manually reorder the clients in the d
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**AddClient** | `addClient p/PHONE_NUMBER [n/NAME] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `addClient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend`
-**AddPet** | `addPet n/NAME p/PHONE_NUMBER​ [s/SPECIES] [b/BREED] [nt/NOTES] [ph/PHOTO]` <br> e.g., `addPet n/Meowy p/22224444`
+**AddClient** | `addClient p/PHONE [n/NAME] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `addClient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend`
+**AddPet** | `addPet n/NAME p/PHONE​ [s/SPECIES] [b/BREED] [nt/NOTES] [ph/PHOTO]` <br> e.g., `addPet n/Meowy p/22224444`
 **Clear**  | `clear`
 **DeleteClient** | `deleteClient POSITION`<br> e.g., `deleteClient 3`
 **DeletePet** | `deletePet POSITION`<br> e.g., `deletePet 1`
-**EditClient**   | `editClient POSITION [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`editClient 2 n/James Lee e/jameslee@example.com`
+**EditClient**   | `editClient POSITION [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`editClient 2 n/James Lee e/jameslee@example.com`
 **EditPet**   | `editPet POSITION [n/NAME] [s/SPECIES] [b/BREED] [nt/NOTES] [ph/PHOTO]`<br> e.g.,`editPet 2 n/Pongo`
 **Exit**   | `exit`
 **Find**   | `find KEYWORD...`<br> e.g., `find James dog`
