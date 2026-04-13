@@ -153,7 +153,7 @@ Optional values will appear as `Unknown` or `None`.
 * Locate the auto-generated photos subdirectory `[hairypawter.jar file location]/data/photos/` (if it has not been generated yet, run any command that adds or deletes an entry first)
 * Copy a photo you wish to add into that subdirectory, and take note of its filename
 * Include this filename after the `pic/` tag when adding a photo using the `addPet` or `editPet` command (eg. `pic/doggy.png`)
-* You may choose to organise the images within your `data/photos/` subdirectory into subfolders. In that case, take note that the filepath you are required to provide will be `[subdirectory name]/[image filename]`
+* You may choose to organise the images within your `data/photos/` subdirectory into subfolders. In that case, take note that the filepath you are required to provide will be `[subdirectory name]/[image filename]`. Be careful not to end the subdirectory name with any other tag name (eg. the filepath `subfolder nt/pet.png` is not allowed)
 
 #### **Using `[nt/NOTES]` to your advantage:**<br>
 

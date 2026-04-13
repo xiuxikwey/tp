@@ -619,7 +619,7 @@ testers are expected to do more *exploratory* testing.
    1. Other correct commands to try: Case-insensitive, alias `ec`, reordered fields, missing fields<br>
       Expected: Similar to previous.
 
-   1. Test case: `editClient p/123`, where there already is a client with phone number 123<br>
+   1. Test case: `editClient 1 p/123`, where there already is a client with phone number 123<br>
       Expected: No change in the list. Error details shown in the status message.
 
    1. Other incorrect commands to try: `editClient`, repeat parameters<br>
