@@ -93,9 +93,20 @@ The `UI` component,
 
 **API** : [`Logic.java`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
-Here's a (partial) class diagram of the `Logic` component:
+Here's a **simplified** class diagram of the `Logic` component:
 
 <puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+
+<box type="info" seamless>
+This diagram groups similar classes (e.g., all command parsers, all command subclasses) and omits repetitive details for clarity. Only key relationships and a few representative commands/parsers are shown. Other command and parser classes are omitted for simplicity.
+</box>
+
+The diagram shows representative commands in the system:
+* **Client/Person Commands**: e.g., `AddPersonCommand`, `DeletePersonCommand`
+* **Pet Commands**: e.g., `AddPetCommand`, `DeletePetCommand`
+* **Utility Commands**: e.g., `FindCommand`, `ListCommand`
+
+Each command has a corresponding parser class that handles parsing user input (e.g., `AddPersonCommandParser`, `AddPetCommandParser`). These are shown as grouped in the diagram for simplicity.
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deleteClient 1")` API call as an example.
 
@@ -115,13 +126,17 @@ How the `Logic` component works:
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
+**Supported Commands:**
 
-<puml src="diagrams/ParserClasses.puml" width="600"/>
+* **Client Management**: `addclient` (ac), `deleteclient`, `editclient` (ec), `find`, `list`
+* **Pet Management**: `addpet` (ap), `deletepet` (dp), `editpet` (ep)
+* **System**: `help`, `exit`, `clear`
+
+The pet-related commands (`addpet`, `deletepet`, `editpet`) are custom features added to link pets with their owners using the owner's phone number.
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPersonCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPersonCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddPersonCommandParser`, `DeletePersonCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates a matching parser (e.g., `AddPersonCommandParser`, `AddPetCommandParser`, `DeletePetCommandParser`, etc.) which uses the `ArgumentTokenizer` and `ParserUtil` to parse the user command and create the corresponding `Command` object.
+* All parser classes inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
