@@ -16,9 +16,9 @@ import java.nio.file.Paths;
  */
 public class PhotoPath {
 
-    public static final String MESSAGE_CONSTRAINTS = "Photo path must be a valid file path "
-            + "to an existing image file and cannot be empty. "
-            + "Relative paths are resolved from data/photos/. "
+    public static final String MESSAGE_CONSTRAINTS = "Photo must be a valid file path "
+            + "to an existing image file stored within data/photos/ and cannot be empty "
+            + "(Example: doggy.png). "
             + "Accepted file extensions: .jpg, .jpeg, .jfif, .png, .gif, .bmp";
 
     private static final Path DATA_PHOTOS_DIR = Paths.get("data", "photos");
@@ -65,8 +65,9 @@ public class PhotoPath {
         // Then, try as a filesystem path using java.nio.file.Path
         try {
             Path path = Paths.get(test);
-            if (!path.isAbsolute()) {
-                path = DATA_PHOTOS_DIR.resolve(path).normalize();
+            path = DATA_PHOTOS_DIR.resolve(path).normalize();
+            if (!path.startsWith(DATA_PHOTOS_DIR)) {
+                return false;
             }
             return Files.exists(path) && Files.isRegularFile(path);
         } catch (InvalidPathException e) {

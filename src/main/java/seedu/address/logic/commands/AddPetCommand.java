@@ -31,14 +31,14 @@ public class AddPetCommand extends Command {
             + "[" + PREFIX_SPECIES + "SPECIES] "
             + "[" + PREFIX_BREED + "BREED] "
             + "[" + PREFIX_NOTE + "NOTES] "
-            + "[" + PREFIX_PHOTO + "PHOTO PATH] "
+            + "[" + PREFIX_PHOTO + "PICTURE] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Doggy "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_SPECIES + "Dog "
             + PREFIX_BREED + "Labrador "
             + PREFIX_NOTE + "hyper and requires extra care "
-            + PREFIX_PHOTO + "C:\\Users\\DummyUser\\Photos\\doggy.png";
+            + PREFIX_PHOTO + "doggy.png";
 
     public static final String MESSAGE_SUCCESS = "New pet added: %1$s";
     public static final String MESSAGE_NONEXISTENT_PERSON = "There is no client with this phone number";
