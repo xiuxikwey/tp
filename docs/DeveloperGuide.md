@@ -65,6 +65,8 @@ Components are called through their interfaces to abstract implementation detail
 
 The sections below give more details of each component.
 
+<div style="page-break-after: always;"></div>
+
 ### UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
@@ -137,6 +139,8 @@ The pet-related commands (`addpet`, `deletepet`, `editpet`) are custom features 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates a matching parser (e.g., `AddPersonCommandParser`, `AddPetCommandParser`, `DeletePetCommandParser`, etc.) which uses the `ArgumentTokenizer` and `ParserUtil` to parse the user command and create the corresponding `Command` object.
 * All parser classes inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+
+<div style="page-break-after: always;"></div>
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-F14-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -890,20 +894,19 @@ Team size: 5
 
 1. **Make find function more specific:** The current `find` command returns a client and **all** their pets if any field matches, even if only one pet was the actual match. The fix is to introduce a pair-predicate in the `Model` that filters at the `(Person, Pet)` level. `getFilteredPersonList()` would expose only the clients that matched, and the UI would render only the matched pets for each such client. This requires changes to `ModelManager`, the filtered list logic, and `PetPersonListPanel`.
 
-2. **Allow `pic/` to clear a photo:** Currently there is no way to remove a photo once it has been set on a pet — `editPet` requires `pic/` to point to a valid file. The fix is to treat `pic/` (with no argument) as a sentinel that clears the photo, consistent with how `t/` clears tags in `editClient`. This requires a change in `EditPetCommandParser` and `EditPetCommand` to distinguish between an absent `pic/` prefix and a present-but-empty one.
+2. **Improve `find` result message to include pet count:** The current result message after `find` says `N clients listed`, but gives no information about how many pets were matched. The fix is to update the message to `N clients listed (M pets)` by counting pets in the filtered list, providing more feedback without requiring the user to count manually.
 
-3. **Improve duplicate-pet error message:** When `addPet` or `editPet` is rejected because a pet with the same name already exists for that owner, the error message says only "This pet already exists." The fix is to include the duplicate's name and owner in the message, e.g. `A pet named 'Max' already exists for client 87438807.`, so users can quickly identify the conflict.
+3. **Support prefix-based `find` for specific fields:** Currently `find dog` matches "dog" anywhere — names, notes, species, etc. — which can return unexpected results. The fix is to allow optional prefixes such as `find s/Dog b/Beagle` to restrict the search to specific fields, while keeping bare keyword search as a fallback for the general case.
 
-4. **Enforce minimum phone number length:** Currently any non-empty string of digits is accepted as a phone number by `Phone`, including single-digit values. The fix is to enforce a minimum of 3 digits in `Phone#isValidPhone()`. Sample input that should be rejected: `p/1`, `p/12`.
+4. **Allow `pic/` to clear a photo:** Currently there is no way to remove a photo once it has been set on a pet — `editPet` requires `pic/` to point to a valid file. The fix is to treat `pic/` (with no argument) as a sentinel that clears the photo, consistent with how `t/` clears tags in `editClient`. This requires a change in `EditPetCommandParser` and `EditPetCommand` to distinguish between an absent `pic/` prefix and a present-but-empty one.
 
-5. **Show pet count in status bar:** The current status bar shows only the data file path. Adding a live count such as `5 clients · 12 pets` would give users at-a-glance information about the size of their database without needing to scroll. This requires a listener on the `ObservableList<Person>` in `StatusBarFooter` and a utility to sum pet counts across all persons.
+5. **Improve duplicate-pet error message:** When `addPet` or `editPet` is rejected because a pet with the same name already exists for that owner, the error message says only "This pet already exists." The fix is to include the duplicate's name and owner in the message, e.g. `A pet named 'Max' already exists for client 87438807.`, so users can quickly identify the conflict.
 
-6. **Improve phone-conflict error message in `editClient`:** When a client's phone is changed to one already used by another client, the error says "This person already exists in the address book." The fix is to make the message more specific: `Phone number 87438807 is already in use by another client.`
+6. **Enforce minimum phone number length:** Currently any non-empty string of digits is accepted as a phone number by `Phone`, including single-digit values. The fix is to enforce a minimum of 3 digits in `Phone#isValidPhone()`. Sample input that should be rejected: `p/1`, `p/12`.
 
-7. **Prevent accidental `clear` with a confirmation step:** The `clear` command permanently deletes all clients and pets with no warning. The fix is to require users to confirm by typing `clear --confirm`, or to display a confirmation prompt in the result display that must be acknowledged before the deletion proceeds.
+7. **Enforce email format constraints:** Currently, the email field accepts any non-empty string. The fix is to change the validation regex for email to be a dash(the default value) or a valid email.
 
-8. **Support prefix-based `find` for specific fields:** Currently `find dog` matches "dog" anywhere — names, notes, species, etc. — which can return unexpected results. The fix is to allow optional prefixes such as `find s/Dog b/Beagle` to restrict the search to specific fields, while keeping bare keyword search as a fallback for the general case.
+8. **Show pet count in status bar:** The current status bar shows only the data file path. Adding a live count such as `5 clients · 12 pets` would give users at-a-glance information about the size of their database without needing to scroll. This requires a listener on the `ObservableList<Person>` in `StatusBarFooter` and a utility to sum pet counts across all persons.
 
-9. **Make address and email optional in `addClient`:** Both `a/` and `e/` are currently required parameters, which forces users to enter placeholder values when a client's email or address is unknown. The fix is to make these fields optional, defaulting to empty strings when omitted, matching how `Species`, `Breed`, `Note`, and `PhotoPath` are optional in `addPet`.
+9. **Prevent accidental `clear` with a confirmation step:** The `clear` command permanently deletes all clients and pets with no warning. The fix is to require users to confirm by typing `clear --confirm`, or to display a confirmation prompt in the result display that must be acknowledged before the deletion proceeds.
 
-10. **Improve `find` result message to include pet count:** The current result message after `find` says `N clients listed`, but gives no information about how many pets were matched. The fix is to update the message to `N clients listed (M pets)` by counting pets in the filtered list, providing more feedback without requiring the user to count manually.

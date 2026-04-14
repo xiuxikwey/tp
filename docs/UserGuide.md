@@ -29,13 +29,15 @@ If you are setting up Hairy Pawter for the first time, start with the [Quick Sta
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Quick Start
 
 ### Installation
 
 1. [Install](https://se-education.org/guides/tutorials/javaInstallation.html) `Java 17` or higher on your computer.
 
-   * `Java 17` is the software that Hairy Pawter needs to run.
+   * `Java 17` is reputable software that Hairy Pawter uses to run.
 <br><br>
 
 1. Download `hairypawter.jar` from the latest release [here](https://github.com/AY2526S2-CS2103T-F14-2/tp/releases).
@@ -68,18 +70,16 @@ You can ignore any other output in the terminal while the app is running. Closin
 
 </box>
 
-### Overview of the interface
+### App layout
 
-<img src="images/Ui.png" class="app-screenshot" alt="Hairy Pawter interface">
+<img src="images/Ui.png" class="app-screenshot" alt="Hairy Pawter interface" style="height:500px;">
 
 When Hairy Pawter opens, you will see four areas:
 
-| Area | Location | Purpose |
-|------|----------|---------|
-| **Client list** | Left panel | Displays all clients and their contact details |
-| **Pet list** | Right panel | Displays the pets belonging to each client |
-| **Result box** | Above the command box | Shows the outcome of your last command |
-| **Command box** | Bottom of the window | Type your commands here and press Enter |
+ * **Client list** (Right panel) Displays all clients and their contact details
+ * **Pet list** (Left panel) Displays the pets belonging to each client
+ * **Result box** (Above the command box) Shows the outcome of your last command
+ * **Command box** (Bottom of the window) Type your commands here and press Enter
 
 ### Try it yourself: a first session
 
@@ -104,7 +104,7 @@ Follow these steps to get started. Type each command into the command box and pr
 
 ## Commands
 
-Type a command into the command box and press Enter to run it. For example, typing `help` and pressing Enter opens the help window.
+You can type a command into the command box and press Enter to run it. For example, typing `help` and pressing Enter opens the help window.
 
 <box type="info" seamless>
 
@@ -119,7 +119,7 @@ Type a command into the command box and press Enter to run it. For example, typi
 * Items with `…` can be repeated multiple times.<br>
   e.g. `[t/TAG]…` can be typed as `t/friend t/family`.
 
-* Parameters can be in any order.<br>
+* Items can be in any order.<br>
   e.g. if the format shows `n/NAME p/PHONE`, typing `p/PHONE n/NAME` also works.
 
 * **`POSITION`** refers to the number displayed next to a client or pet in the list. It changes whenever you use `find` or `list`, so always check the current number before editing or deleting.
@@ -137,7 +137,7 @@ Type a command into the command box and press Enter to run it. For example, typi
 
 You would use the `help` command when you don't remember the command to perform a specific action.
 
-This command shows a message explaining how to access the user guide (this document), to view the list of commands and how to use them.
+This command brings up a link to the user guide (this document), so you can refer to the list of commands and how to use them.
 
 <img src="images/helpMessage.png" class="app-screenshot" alt="help message">
 
@@ -147,7 +147,9 @@ Format: `help`
 
 ### Adding a client: `addClient`
 
-Registers a new client. The new client appears at the top of the list.
+You can use this command to register a new client. You can add optional details, or let them default to `-`. New clients appear at the top of the list to facilitate adding pets.
+
+If you have more details to add, you can save them as `[t/TAG]`s. You can also use `[t/TAG]` to store the date, so you can find clients that visited today.
 
 <box type="warning" seamless>
 
@@ -168,17 +170,7 @@ New client added: John Doe; Phone: 98765432; Email: johnd@example.com; Address: 
 
 <box type="info" seamless>
 
-**Note:** If you have used `find` and the new client does not match your search terms, they will not appear in the current view. Type `list` to see all clients.
-
-Omitted fields will appear as `-`.
-
-</box>
-
-<box type="tip" seamless>
-
-**Tip — using `[t/TAG]…` effectively:**
-* Add multiple tags to record extra information, such as a client's grooming preferences or the date of their last visit (e.g. `t/2025-03-15`).
-* Tags are searchable with the `find` command, making it easy to filter by visit date or any other label.
+**Note:** If you have used `find` and the new client does not match your keywords, they will not appear in the current view. Type `list` to see all clients.
 
 </box>
 
@@ -186,7 +178,7 @@ Omitted fields will appear as `-`.
 
 ### Adding a pet: `addPet`
 
-Registers a new pet under an existing client. The client is identified by their phone number.
+You can use this command to register a new pet under an existing client. The client is linked using their phone number. Optional details will appear empty until you fill them in.
 
 <box type="warning" seamless>
 
@@ -210,44 +202,26 @@ New pet added: Snowy; Species: Dog; Breed: Wire Fox Terrier (White); Notes: None
 
 <box type="info" seamless>
 
-Omitted fields will appear empty.
+##### **How to use `[pic/PICTURE]`:**<br>
 
-</box>
-
-##### **More about `[pic/PICTURE]`:**<br>
-
-* Locate the auto-generated photos subdirectory `[hairypawter.jar file location]/data/photos/` (if it has not been generated yet, run any command that adds or deletes an entry first)
-* Copy a photo you wish to add into that subdirectory, and take note of its filename
-* Include this filename after the `pic/` tag when adding a photo using the `addPet` or `editPet` command (eg. `pic/doggy.png`)
-* You may choose to organise the images within your `data/photos/` subdirectory into subfolders. In that case, take note that the filepath you are required to provide will be `[subdirectory name]/[image filename]`. Be careful not to end the subdirectory name with any other tag name (eg. the filepath `subfolder nt/pet.png` is not allowed)
-* A picture will show as the placeholder pawprint icon in 2 cases:
-  1. No picture has been added to the pet.
-  1. A valid picture was initially added, but was later unable to be located (either due to the picture being deleted or due to the filepath being manually edited to an invalid filepath in the JSON file after the initial adding)
-  * If this happens, try to re-add the photo with the `editPet` command with the corrected filename and filepath
+* Locate this folder `[_Hair Pawter home folder_]/data/photos/`. (if it has not been generated yet, run any command that adds or deletes an entry first)
+* Copy a photo you wish to add into that folder, and take note of its filename.
+* To add this photo, include its filename after `pic/`. (eg. `pic/doggy.png`)
+* You may choose to organise the images within your `data/photos/` folder into subfolders. In this case, take note that you have to include the subfolder name in your input. (eg. `pic/[subfolder name]/[image filename]`). Be careful not to end the subfolder name with a command item. (eg. `pic/subfolder nt/pet.png` is not allowed)
+* If the photo does not appear, try using the `editPet` command to update the filename and filepath.
 
 ##### **Using `[nt/NOTES]` to your advantage:**<br>
 
 * `[nt/NOTES]` exists to record down important information about the pet. This can be identifying information
 like leash colour, or allergies and quirks of the pet. Use this flexibly!
 
-<br><br>
-
-### Listing all clients and pets : `list`
-
-Shows all clients and their pets.
-
-Format: `list`
-
-**Expected output:**
-```
-Listed all clients
-```
+</box>
 
 <br><br>
 
 ### Editing a client : `editClient`
 
-Edits the details of an existing client.
+Use this command to edit the details of an existing client.
 
 * Edits the client at the specified `POSITION`.
 * Only the fields you provide will be updated; all other fields remain unchanged.
@@ -276,7 +250,7 @@ Edited Client: Betsy Crower; Phone: 1234567; Email: betsycrowe@example.com; Addr
 
 ### Editing a pet : `editPet`
 
-Edits the details of an existing pet.
+Use this command to edit the details of an existing pet.
 
 * Edits the pet at the specified `POSITION`.
 * Only the fields you provide will be updated; all other fields remain unchanged.
@@ -308,9 +282,9 @@ Click [here](#using-ntnotes-to-your-advantage) to see how to use the `nt/` tag.
 
 ### Locating clients and pets by keywords: `find`
 
-Filters the list to show only clients and pets that match **all** of the given keywords.
+Use this command to filter only clients and pets that match **all** of the given keywords.
 
-* The search covers all fields: client name, phone, email, address, tags, and pet name, species, breed, and notes.
+* The filter covers all fields except `[pic/PICTURE]`: client name, phone, email, address, tags, and pet name, species, breed, and notes.
 * Matching is partial and case-insensitive (e.g. `Roy` matches `Leroy`).
 * All keywords must match — e.g. `Hans Bo` only shows results where both `Hans` and `Bo` appear somewhere in the record.
 * Keyword order does not matter.
@@ -333,15 +307,28 @@ Examples:
 
 </box>
 
-<img src="images/findYuCatResult.png" class="app-screenshot" alt="result for find Yu Cat">
+<br><br>
+
+### Listing all clients and pets : `list`
+
+Use this command to show all clients and their pets.
+
+Format: `list`
+
+**Expected output:**
+```
+Listed all clients
+```
 
 <br><br>
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting a client : `deleteClient`
 
-Deletes the specified client.
+Use this command to delete a client.
 
-<box type="warning" seamless>
+<box type="info" seamless>
 
 **Warning:** Deleting a client also permanently deletes all of their pets. This cannot be undone.
 
@@ -362,7 +349,7 @@ Deleted Client: Betsy Crowe; Phone: 1234567; Email: betsycrowe@example.com; Addr
 
 ### Deleting a pet : `deletePet`
 
-Deletes the specified pet.
+Use this command to delete a pet.
 
 Format: `deletePet POSITION`
 
@@ -387,7 +374,7 @@ Deleted Pet: Biscuit; Species: Dog; Breed: Golden Retriever; Notes: Loves belly 
 
 ### Clearing all records : `clear`
 
-Deletes all clients and pets from Hairy Pawter.
+Use this command to delete all clients and pets from Hairy Pawter.
 
 <box type="warning" seamless>
 
@@ -406,7 +393,7 @@ Hairy Pawter has been cleared!
 
 ### Exiting the app : `exit`
 
-Exits the app.
+Use this command to exit the app.
 
 Format: `exit`
 
@@ -421,7 +408,7 @@ Data is saved automatically after every command. There is no need to save manual
 
 ### Editing the data file
 
-Data is stored as a JSON file at `[hairypawter.jar location]/data/addressbook.json`. You can edit this file directly if needed, but this is not recommended.
+Data is stored as a JSON file at `[_hairypawter.jar home folder_]/data/addressbook.json`. You can edit this file directly if needed, but this is not recommended.
 
 <box type="warning" seamless>
 
@@ -452,7 +439,11 @@ Optional fields should still be included in the JSON with empty values to avoid 
 
 
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install Hairy Pawter on the other computer, then copy the entire `data/` folder from your current home folder to the same location on the other computer.
+**A**: You can install Hairy Pawter on the other computer, then copy the entire `data/` folder from your current home folder to the same location on the other computer.
+
+
+**Q**: How do I clear a client's name or email?<br>
+**A**: You can edit it to `-`, which is the standard default for client details.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -462,6 +453,8 @@ Optional fields should still be included in the JSON with empty values to avoid 
 2. **If you minimise the Help Window** and then run the `help` command again (or press `F1`), the existing minimised window will not reappear and no new window will open. Fix: manually restore the minimised Help Window from your taskbar.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Command summary
 
