@@ -902,6 +902,8 @@ Team size: 5
 
 5. **Improve duplicate-pet error message:** When `addPet` or `editPet` is rejected because a pet with the same name already exists for that owner, the error message says only "This pet already exists." The fix is to include the duplicate's name and owner in the message, e.g. `A pet named 'Max' already exists for client 87438807.`, so users can quickly identify the conflict.
 
+6. **Make pet duplicate checking case-insensitive:** The current duplicate checking mechanism is case-sensitive. The fix is to edit the hasPet() method in UniquePersonsList.java and the Person class.
+
 6. **Enforce minimum phone number length:** Currently any non-empty string of digits is accepted as a phone number by `Phone`, including single-digit values. The fix is to enforce a minimum of 3 digits in `Phone#isValidPhone()`. Sample input that should be rejected: `p/1`, `p/12`.
 
 7. **Enforce email format constraints:** Currently, the email field accepts any non-empty string. The fix is to change the validation regex for email to be a dash(the default value) or a valid email.
@@ -909,4 +911,3 @@ Team size: 5
 8. **Show pet count in status bar:** The current status bar shows only the data file path. Adding a live count such as `5 clients · 12 pets` would give users at-a-glance information about the size of their database without needing to scroll. This requires a listener on the `ObservableList<Person>` in `StatusBarFooter` and a utility to sum pet counts across all persons.
 
 9. **Prevent accidental `clear` with a confirmation step:** The `clear` command permanently deletes all clients and pets with no warning. The fix is to require users to confirm by typing `clear --confirm`, or to display a confirmation prompt in the result display that must be acknowledged before the deletion proceeds.
-
