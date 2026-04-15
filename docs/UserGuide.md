@@ -346,9 +346,7 @@ Examples:
 * `find Yu cat` — shows clients where both `Yu` and `cat` appear anywhere across the client's or their pets' details.
 
 **Expected output:**
-```
-1 client(s) listed!
-```
+<img src="images/find.png" class="app-screenshot" alt="find command result" style="height:450px;">
 ```
 0 client(s) listed!
 ```
@@ -375,8 +373,6 @@ Listed all clients
 ```
 
 <br><br>
-
-<div style="page-break-after: always;"></div>
 
 ### Deleting a client : `deleteClient`
 
